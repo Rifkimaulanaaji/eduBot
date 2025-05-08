@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matematika - Kurikulum Merdeka</title>
+    <style>
+        :root {
+            --primary-color: #00a0ff;
+            --subject-color: #7a36e3;
+            --subject-light: #efe5ff;
+            --text-dark: #2c3e50;
+            --text-medium: #546e7a;
+            --text-light: #b0bec5;
+            --bg-light: #f8fafc;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding-bottom: 70px;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--subject-color) 0%, #9b5de5 100%);
+            color: white;
+            padding: 25px 20px;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 4px 20px rgba(122, 54, 227, 0.25);
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .back-button {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: none;
+            color: white;
+            transition: all 0.2s ease;
+        }
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .options-button {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: none;
+            color: white;
+        }
+        .subject-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .subject-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 32px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .subject-details {
+            flex-grow: 1;
+        }
+        .subject-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+        .subject-class {
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.9;
+            letter-spacing: 0.3px;
+            margin-top: 4px;
+        }
+        .search-container {
+            position: relative;
+            margin-top: 15px;
+        }
+        .search-bar {
+            background-color: white;
+            border-radius: 15px;
+            padding: 0 15px;
+            height: 50px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 5px;
+        }
+        .search-bar input {
+            border: none;
+            flex-grow: 1;
+            font-size: 15px;
+            height: 100%;
+            padding: 0 10px;
+            color: var(--text-medium);
+            outline: none;
+        }
+        .search-icon {
+            color: var(--text-light);
+            font-size: 18px;
+        }
+        .content {
+            padding: 0 20px;
+        }
+        .quick-access {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin: 0 -5px 20px -5px;
+            scrollbar-width: none;  /* Firefox */
+        }
+        .quick-access::-webkit-scrollbar {
+            display: none;  /* Chrome, Safari, Opera */
+        }
+        .quick-access-item {
+            flex: 0 0 auto;
+            margin: 0 5px;
+            padding: 12px 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            min-width: 135px;
+        }
+        .quick-access-item.active {
+            background-color: var(--subject-light);
+            border-left: 4px solid var(--subject-color);
+        }
+        .quick-access-icon {
+            width: 34px;
+            height: 34px;
+            background-color: #e3f2fd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            margin-right: 12px;
+            font-size: 16px;
+        }
+        .quick-access-item.active .quick-access-icon {
+            background-color: var(--subject-color);
+            color: white;
+        }
+        .quick-access-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-medium);
+        }
+        .quick-access-item.active .quick-access-text {
+            color: var(--subject-color);
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 15px 0;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        .view-all {
+            font-size: 13px;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .search-chapter {
+            background-color: #fff;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        .search-input-container {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .search-chapter-icon {
+            color: var(--text-light);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .search-chapter input {
+            border: none;
+            flex-grow: 1;
+            font-size: 15px;
+            outline: none;
+            color: var(--text-medium);
+        }
+        .search-filters {
+            display: flex;
+            padding: 12px 15px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .search-filters::-webkit-scrollbar {
+            display: none;
+        }
+        .filter-tag {
+            flex: 0 0 auto;
+            padding: 6px 12px;
+            background-color: #f5f7fa;
+            border-radius: 20px;
+            margin-right: 8px;
+            font-size: 13px;
+            color: var(--text-medium);
+            white-space: nowrap;
+        }
+        .filter-tag.active {
+            background-color: var(--subject-light);
+            color: var(--subject-color);
+            font-weight: 600;
+        }
+        .tip-box {
+            background-color: #f0f9ff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+        .tip-icon {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+        .tip-text {
+            font-size: 13px;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+        .tip-highlight {
+            color: var(--subject-color);
+            font-weight: 600;
+        }
+        .tip-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .chapter-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .chapter-item {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease;
+        }
+        .chapter-item:hover {
+            transform: translateY(-3px);
+        }
+        .chapter-header {
+            height: 80px;
+            background: linear-gradient(45deg, #7a36e3 0%, #9b5de5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .chapter-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background: radial-gradient(circle, transparent 20%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.3) 25%, transparent 25%, transparent 30%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0.3) 35%, transparent 35%);
+            background-size: 20px 20px;
+        }
+        .chapter-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            width: 25%;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .chapter-content {
+            padding: 15px;
+            position: relative;
+        }
+        .chapter-icon {
+            position: absolute;
+            top: -30px;
+            left: 15px;
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .chapter-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        .chapter-info {
+            margin-left: 70px;
+            min-height: 45px;
+        }
+        .chapter-title {
+            font-weight: 700;
+            font-size: 16px;
+            margin: 0 0 5px 0;
+            color: var(--text-dark);
+        }
+        .chapter-meta {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .chapter-difficulty {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-right: 15px;
+        }
+        .difficulty-icon {
+            margin-right: 4px;
+            font-size: 14px;
+        }
+        .chapter-lessons {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        .lessons-icon {
+            margin-right: 4px;
+            font-size: 14px;
+        }
+        .chapter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-top: 1px solid #f5f5f5;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            color: var(--text-medium);
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .action-icon {
+            margin-right: 6px;
+            font-size: 16px;
+        }
+        .download-btn {
+            padding: 8px 15px;
+            background-color: var(--subject-light);
+            color: var(--subject-color);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+        .download-icon {
+            margin-left: 6px;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 8px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            border-radius: 20px 20px 0 0;
+            z-index: 1000;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        .nav-text {
+            font-size: 11px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="nav-controls">
+            <button class="back-button">←</button>
+            <button class="options-button">⋮</button>
+        </div>
+        
+        <div class="subject-info">
+            <div class="subject-icon">∑</div>
+            <div class="subject-details">
+                <h1 class="subject-title">Matematika</h1>
+                <div class="subject-class">Kelas 10 · Kurikulum Merdeka</div>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <div class="search-icon">🔍</div>
+                <input type="text" placeholder="Cari materi, rumus, atau pembahasan...">
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="quick-access">
+            <div class="quick-access-item active">
+                <div class="quick-access-icon">📚</div>
+                <div class="quick-access-text">Materi</div>
+            </div>
+            <div class="quick-access-item">
+                <div class="quick-access-icon">📝</div>
+                <div class="quick-access-text">Latihan</div>
+            </div>
+            <div class="quick-access-item">
+                <div class="quick-access-icon">📊</div>
+                <div class="quick-access-text">Banksoal</div>
+            </div>
+            <div class="quick-access-item">
+                <div class="quick-access-icon">🎯</div>
+                <div class="quick-access-text">Target</div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title">Bab Pembelajaran</h2>
+            <a href="#" class="view-all">Lihat Semua</a>
+        </div>
+
+        <div class="search-chapter">
+            <div class="search-input-container">
+                <div class="search-chapter-icon">🔍</div>
+                <input type="text" placeholder="Cari bab yang ingin dipelajari">
+            </div>
+            <div class="search-filters">
+                <div class="filter-tag active">Semua</div>
+                <div class="filter-tag">Aljabar</div>
+                <div class="filter-tag">Geometri</div>
+                <div class="filter-tag">Trigonometri</div>
+                <div class="filter-tag">Statistika</div>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">
+                Cari dengan kata kunci yang spesifik untuk menemukan <span class="tip-highlight">bab yang sesuai</span> dengan kebutuhan belajarmu.
+                <br>
+                <a href="#" class="tip-link">Tips pencarian efektif →</a>
+            </div>
+        </div>
+
+        <div class="chapter-list">
+            <div class="chapter-item">
+                <div class="chapter-header">
+                    <div class="chapter-pattern"></div>
+                    <div class="chapter-progress"></div>
+                </div>
+                <div class="chapter-content">
+                    <div class="chapter-icon">
+                        <img src="/api/placeholder/32/32" alt="Eksponen icon">
+                    </div>
+                    <div class="chapter-info">
+                        <h3 class="chapter-title">Eksponen dan Logaritma</h3>
+                        <div class="chapter-meta">
+                            <div class="chapter-difficulty">
+                                <span class="difficulty-icon">🔥</span>
+                                Menengah
+                            </div>
+                            <div class="chapter-lessons">
+                                <span class="lessons-icon">📖</span>
+                                12 subbab
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chapter-actions">
+                    <div class="action-btn">
+                        <span class="action-icon">👁️</span>
+                        Pratinjau
+                    </div>
+                    <div class="download-btn">
+                        Pelajari
+                        <span class="download-icon">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-header">
+                    <div class="chapter-pattern"></div>
+                    <div class="chapter-progress"></div>
+                </div>
+                <div class="chapter-content">
+                    <div class="chapter-icon">
+                        <img src="/api/placeholder/32/32" alt="Persamaan icon">
+                    </div>
+                    <div class="chapter-info">
+                        <h3 class="chapter-title">Persamaan dan Pertidaksamaan</h3>
+                        <div class="chapter-meta">
+                            <div class="chapter-difficulty">
+                                <span class="difficulty-icon">🔥</span>
+                                Menengah
+                            </div>
+                            <div class="chapter-lessons">
+                                <span class="lessons-icon">📖</span>
+                                9 subbab
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chapter-actions">
+                    <div class="action-btn">
+                        <span class="action-icon">👁️</span>
+                        Pratinjau
+                    </div>
+                    <div class="download-btn">
+                        Pelajari
+                        <span class="download-icon">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-header">
+                    <div class="chapter-pattern"></div>
+                    <div class="chapter-progress"></div>
+                </div>
+                <div class="chapter-content">
+                    <div class="chapter-icon">
+                        <img src="/api/placeholder/32/32" alt="Geometri icon">
+                    </div>
+                    <div class="chapter-info">
+                        <h3 class="chapter-title">Geometri dan Transformasi</h3>
+                        <div class="chapter-meta">
+                            <div class="chapter-difficulty">
+                                <span class="difficulty-icon">🔥</span>
+                                Menengah
+                            </div>
+                            <div class="chapter-lessons">
+                                <span class="lessons-icon">📖</span>
+                                14 subbab
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chapter-actions">
+                    <div class="action-btn">
+                        <span class="action-icon">👁️</span>
+                        Pratinjau
+                    </div>
+                    <div class="download-btn">
+                        Pelajari
+                        <span class="download-icon">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="#" class="nav-item">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-text">Beranda</div>
+        </a>
+        <a href="#" class="nav-item active">
+            <div class="nav-icon">📚</div>
+            <div class="nav-text">Materi</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div class="nav-icon">📝</div>
+            <div class="nav-text">Latihan</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div class="nav-icon">👤</div>
+            <div class="nav-text">Profil</div>
+        </a>
+    </div>
+</body>
+</html>
