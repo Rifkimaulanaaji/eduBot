@@ -683,8 +683,8 @@
             console.log('Selected class:', selectedClass);
             console.log('Selected curriculum:', selectedCurriculum);
             // input to display
-            const input = document.querySelector('.search-input');
-            input.value = `${selectedClass || ''} ${selectedCurriculum || ''}`.trim();
+            const input = document.querySelector('#display-selected');
+            input.textContent = `${selectedClass || ''} ${selectedCurriculum || ''}`.trim();
             // Example: redirect to class page
             // window.location.href = `/class/${selectedClass}/${selectedCurriculum}`;
             // Close dropdown
@@ -711,7 +711,7 @@
             <h1 class="welcome-text">Selamat datang rifki!</h1>
             <p class="subtitle-text">Mau belajar apa hari ini?</p>
             <div class="search-container search-box" onclick="openSheet()">
-                <input type="text" class="search-bar search-input" placeholder="Kamu kelas apaa?" >
+                <div class="search-bar search-input"><h4 style="color: black" id="display-selected">Kamu kelas apaa?</h4></div>
                 <div class="search-icon">🔍</div>
             </div>
             
