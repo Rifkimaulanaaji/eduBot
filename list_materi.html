@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matematika - Kurikulum Merdeka</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #00a0ff;
@@ -407,6 +408,7 @@
         .download-icon {
             margin-left: 6px;
         }
+        /* navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -430,6 +432,15 @@
         .nav-item.active {
             color: var(--primary-color);
         }
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            bottom: 65px;
+            width: 40px;
+            height: 3px;
+            background: #0078E7;
+            border-radius: 3px;
+        }
         .nav-icon {
             font-size: 22px;
             margin-bottom: 4px;
@@ -437,6 +448,15 @@
         .nav-text {
             font-size: 11px;
             font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: #00a0ff;
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -512,7 +532,7 @@
         </div>
 
         <div class="chapter-list">
-            <div class="chapter-item">
+            <a href="list_bab.html"><div class="chapter-item">
                 <div class="chapter-header">
                     <div class="chapter-pattern"></div>
                     <div class="chapter-progress"></div>
@@ -545,7 +565,7 @@
                         <span class="download-icon">→</span>
                     </div>
                 </div>
-            </div>
+            </div></a>
 
             <div class="chapter-item">
                 <div class="chapter-header">
@@ -619,21 +639,21 @@
         </div>
     </div>
 
-    <div class="bottom-nav">
+            <div class="bottom-nav">
         <a href="index.html" class="nav-item">
-            <div class="nav-icon">🏠</div>
+            <div class="nav-icon"><i class="fas fa-home"></i></div>
             <div class="nav-text">Beranda</div>
         </a>
         <a href="#" class="nav-item active">
-            <div class="nav-icon">📚</div>
+            <div class="nav-icon"><i class="fas fa-book"></i></div>
             <div class="nav-text">Materi</div>
         </a>
         <a href="#" class="nav-item">
-            <div class="nav-icon">📝</div>
+            <div class="nav-icon"><i class="fas fa-pencil-alt"></i></div>
             <div class="nav-text">Latihan</div>
         </a>
         <a href="#" class="nav-item">
-            <div class="nav-icon">👤</div>
+            <div class="nav-icon"><i class="fas fa-user"></i></div>
             <div class="nav-text">Profil</div>
         </a>
     </div>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage Redesign Enhanced</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -488,8 +489,8 @@
             font-size: 14px;
         }
         
-        /* Navigation */
-        .navigation {
+        /* navigation */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -497,39 +498,45 @@
             background-color: white;
             display: flex;
             justify-content: space-around;
-            padding: 12px 0 8px;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.08);
-            border-radius: 25px 25px 0 0;
-            z-index: 100;
+            padding: 12px 0 8px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            border-radius: 20px 20px 0 0;
+            z-index: 1000;
         }
-        
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #888;
-            font-size: 12px;
-            font-weight: 500;
-            position: relative;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-light);
         }
-        
         .nav-item.active {
-            color: #0078E7;
+            color: var(--primary-color);
         }
-        
         .nav-item.active::before {
             content: '';
             position: absolute;
-            top: -15px;
+            bottom: 65px;
             width: 40px;
             height: 3px;
             background: #0078E7;
             border-radius: 3px;
         }
-        
         .nav-icon {
-            font-size: 24px;
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        .nav-text {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: #00a0ff;
+        }
+
+        .nav-item i {
+            font-size: 18px;
             margin-bottom: 4px;
         }
         
@@ -838,23 +845,23 @@
     
     <div class="floating-button">✚</div>
     
-    <div class="navigation">
-        <div class="nav-item active">
-            <div class="nav-icon">🏠</div>
-            <span>Beranda</span>
-        </div>
-        <div class="nav-item">
-            <div class="nav-icon">📚</div>
-            <span>Materi</span>
-        </div>
-        <div class="nav-item">
-            <div class="nav-icon">🤖</div>
-            <span>Chatbot</span>
-        </div>
-        <div class="nav-item">
-            <div class="nav-icon">👤</div>
-            <span>Profil</span>
-        </div>
+            <div class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <div class="nav-icon"><i class="fas fa-home"></i></div>
+            <div class="nav-text">Beranda</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-book"></i></div>
+            <div class="nav-text">Materi</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-pencil-alt"></i></div>
+            <div class="nav-text">Latihan</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-user"></i></div>
+            <div class="nav-text">Profil</div>
+        </a>
     </div>
 </body>
 </html>
