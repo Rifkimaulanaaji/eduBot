@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Logaritma</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #9254de 0%, #7c3aed 100%);
+            color: white;
+            padding: 20px 16px;
+            position: relative;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .back-button {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        
+        .header-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .progress-container {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .progress-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .progress-bar {
+            background-color: #e0e0e0;
+            height: 4px;
+            width: 100%;
+            border-radius: 4px;
+            margin: 8px 0;
+        }
+        
+        .progress-fill {
+            background-color: #4caf50;
+            height: 100%;
+            border-radius: 4px;
+            width: 0%; /* Will be controlled by JS */
+        }
+        
+        .question-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px;
+            align-items: center;
+        }
+        
+        .question-count {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .question-dots {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+        }
+        
+        .dot.active {
+            background-color: #7c3aed;
+        }
+        
+        .dot.correct {
+            background-color: #4caf50;
+        }
+        
+        .dot.incorrect {
+            background-color: #f44336;
+        }
+        
+        .question-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 0 16px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .question-number {
+            font-size: 14px;
+            font-weight: 500;
+            color: #7c3aed;
+            margin-bottom: 8px;
+        }
+        
+        .question-text {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .math-formula {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 16px 0;
+            text-align: center;
+            font-size: 18px;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option-item:hover {
+            border-color: #7c3aed;
+            background-color: #f8f5ff;
+        }
+        
+        .option-item.selected {
+            border-color: #7c3aed;
+            background-color: #f8f5ff;
+        }
+        
+        .option-item.correct {
+            border-color: #4caf50;
+            background-color: #f1f8e9;
+        }
+        
+        .option-item.incorrect {
+            border-color: #f44336;
+            background-color: #fef5f5;
+        }
+        
+        .radio-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #e0e0e0;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .selected .radio-circle {
+            border-color: #7c3aed;
+        }
+        
+        .selected .radio-circle::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #7c3aed;
+        }
+        
+        .correct .radio-circle {
+            border-color: #4caf50;
+        }
+        
+        .correct .radio-circle::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4caf50;
+        }
+        
+        .incorrect .radio-circle {
+            border-color: #f44336;
+        }
+        
+        .incorrect .radio-circle::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #f44336;
+        }
+        
+        .option-text {
+            font-size: 15px;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px;
+            margin-bottom: 60px;
+        }
+        
+        .nav-button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button-previous {
+            background-color: #f5f5f5;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        
+        .button-next, .button-submit {
+            background-color: #7c3aed;
+            color: white;
+        }
+        
+        .button-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .image-container {
+            width: 100%;
+            margin: 16px 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        
+        .floating-button {
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            background-color: #7c3aed;
+            color: white;
+            border-radius: 24px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            z-index: 100;
+        }
+        
+        .floating-button span {
+            margin-left: 8px;
+            font-weight: 500;
+        }
+        
+        .bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .nav-item.active {
+            color: #2196f3;
+        }
+        
+        .nav-icon {
+            margin-bottom: 4px;
+        }
+        
+        .result-container {
+            display: none;
+            padding: 16px;
+        }
+        
+        .result-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .result-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: #7c3aed;
+            margin: 16px 0;
+        }
+        
+        .result-text {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: #555;
+        }
+        
+        .result-button {
+            background-color: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            margin-top: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"></path>
+            </svg>
+        </div>
+        <h1 class="header-title">Latihan Logaritma</h1>
+        <p class="header-subtitle">Uji pemahaman konsep dasar logaritma</p>
+    </div>
+    
+    <div class="progress-container">
+        <div class="progress-text">1 dari 5 soal</div>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 20%"></div>
+    </div>
+    
+    <div class="question-nav">
+        <div class="question-count">Soal 1 dari 5</div>
+        <div class="question-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    
+    <div id="question-container">
+        <div class="question-card" id="question-1">
+            <div class="question-number">Soal 1</div>
+            <div class="question-text">Tentukan nilai dari log<sub>2</sub>16 ?</div>
+            
+            <div class="options-container">
+                <div class="option-item" data-value="A">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">A. 2</div>
+                </div>
+                <div class="option-item" data-value="B">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">B. 3</div>
+                </div>
+                <div class="option-item" data-value="C">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">C. 4</div>
+                </div>
+                <div class="option-item" data-value="D">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">D. 8</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="question-card" id="question-2" style="display: none;">
+            <div class="question-number">Soal 2</div>
+            <div class="question-text">Bentuk eksponen dari log<sub>3</sub>81 = 4 adalah...</div>
+            
+            <div class="options-container">
+                <div class="option-item" data-value="A">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">A. 3<sup>4</sup> = 81</div>
+                </div>
+                <div class="option-item" data-value="B">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">B. 4<sup>3</sup> = 81</div>
+                </div>
+                <div class="option-item" data-value="C">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">C. 81<sup>4</sup> = 3</div>
+                </div>
+                <div class="option-item" data-value="D">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">D. 81<sup>3</sup> = 4</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="question-card" id="question-3" style="display: none;">
+            <div class="question-number">Soal 3</div>
+            <div class="question-text">Jika log<sub>2</sub>x = 5, berapakah nilai x?</div>
+            
+            <div class="options-container">
+                <div class="option-item" data-value="A">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">A. 10</div>
+                </div>
+                <div class="option-item" data-value="B">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">B. 25</div>
+                </div>
+                <div class="option-item" data-value="C">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">C. 32</div>
+                </div>
+                <div class="option-item" data-value="D">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">D. 64</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="question-card" id="question-4" style="display: none;">
+            <div class="question-number">Soal 4</div>
+            <div class="question-text">Perhatikan persamaan berikut: log<sub>a</sub>25 = 2. Tentukan nilai a.</div>
+            
+            <div class="options-container">
+                <div class="option-item" data-value="A">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">A. 3</div>
+                </div>
+                <div class="option-item" data-value="B">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">B. 5</div>
+                </div>
+                <div class="option-item" data-value="C">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">C. 12,5</div>
+                </div>
+                <div class="option-item" data-value="D">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">D. 25</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="question-card" id="question-5" style="display: none;">
+            <div class="question-number">Soal 5</div>
+            <div class="question-text">Tentukan nilai dari log<sub>3</sub>27 + log<sub>4</sub>16</div>
+            
+            <div class="image-container">
+                <img src="/api/placeholder/400/200" alt="Ilustrasi soal logaritma">
+            </div>
+            
+            <div class="options-container">
+                <div class="option-item" data-value="A">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">A. 5</div>
+                </div>
+                <div class="option-item" data-value="B">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">B. 6</div>
+                </div>
+                <div class="option-item" data-value="C">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">C. 7</div>
+                </div>
+                <div class="option-item" data-value="D">
+                    <div class="radio-circle"></div>
+                    <div class="option-text">D. 8</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation-buttons">
+        <button class="nav-button button-previous button-disabled" id="prev-button">Sebelumnya</button>
+        <button class="nav-button button-next" id="next-button">Selanjutnya</button>
+    </div>
+    
+    <div class="result-container" id="result-container">
+        <div class="result-card">
+            <h2>Hasil Latihan</h2>
+            <div class="result-score" id="score-display">80%</div>
+            <div class="result-text">Kamu menjawab benar 4 dari 5 soal</div>
+            <p>Teruslah berlatih untuk meningkatkan pemahamanmu.</p>
+            <button class="result-button" id="review-button">Tinjau Jawaban</button>
+            <button class="result-button" style="background-color: #4caf50; margin-left: 10px;" id="continue-button">Lanjutkan</button>
+        </div>
+    </div>
+    
+    <div class="floating-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>Tanya Nostra</span>
+    </div>
+    
+    <div class="bottom-navbar">
+        <div class="nav-item">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </div>
+            <span>Beranda</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+            </div>
+            <span>Materi</span>
+        </div>
+        <div class="nav-item active">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                    <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                    <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                    <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                    <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                    <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                </svg>
+            </div>
+            <span>Latihan</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <span>Profil</span>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize variables
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        const userAnswers = {};
+        const correctAnswers = {
+            1: "C", // log₂16 = 4
+            2: "A", // 3⁴ = 81
+            3: "C", // 2⁵ = 32
+            4: "B", // 5² = 25
+            5: "B"  // log₃27 + log₄16 = 3 + 2 = 5
+        };
+        
+        // DOM elements
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        
+        // Event listeners for option selection
+        document.querySelectorAll('.option-item').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options in the current question
+                const questionId = this.closest('.question-card').id;
+                const questionNumber = parseInt(questionId.split('-')[1]);
+                
+                document.querySelectorAll(`#${questionId} .option-item`).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to the clicked option
+                this.classList.add('selected');
+                
+                // Save the answer
+                userAnswers[questionNumber] = this.dataset.value;
+            });
+        });
+        
+        // Event listener for previous button
+        prevButton.addEventListener('click', function() {
+            if (currentQuestion > 1) {
+                // Hide current question
+                document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+                
+                // Show previous question
+                currentQuestion--;
+                document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+                
+                // Update navigation buttons
+                updateNavigationButtons();
+                
+                // Update progress
+                updateProgress();
+            }
+        });
+        
+        // Event listener for next/submit button
+        nextButton.addEventListener('click', function() {
+            if (currentQuestion < totalQuestions) {
+                // Hide current question
+                document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+                
+                // Show next question
+                currentQuestion++;
+                document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+                
+                // Update navigation buttons
+                updateNavigationButtons();
+                
+                // Update progress
+                updateProgress();
+            } else {
+                // Show results
+                showResults();
+            }
+        });
+        
+        // Function to update navigation buttons
+        function updateNavigationButtons() {
+            // Enable/disable previous button
+            if (currentQuestion === 1) {
+                prevButton.classList.add('button-disabled');
+            } else {
+                prevButton.classList.remove('button-disabled');
+            }
+            
+            // Update next/submit button text
+            if (currentQuestion === totalQuestions) {
+                nextButton.textContent = 'Selesai';
+                nextButton.classList.add('button-submit');
+            } else {
+                nextButton.textContent = 'Selanjutnya';
+                nextButton.classList.remove('button-submit');
+            }
+        }
+        
+        // Function to update progress bar and text
+        function updateProgress() {
+            const progressPercentage = (currentQuestion / totalQuestions) * 100;
+            document.querySelector('.progress-fill').style.width = `${progressPercentage}%`;
+            document.querySelector('.progress-text').textContent = `${currentQuestion} dari ${totalQuestions} soal`;
+            document.querySelector('.question-count').textContent = `Soal ${currentQuestion} dari ${totalQuestions}`;
+            
+            // Update dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index + 1 === currentQuestion) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+        
+        // Function to show results
+        function showResults() {
+            // Hide question container
+            document.getElementById('question-container').style.display = 'none';
+            document.querySelector('.navigation-buttons').style.display = 'none';
+            document.querySelector('.question-nav').style.display = 'none';
+            
+            // Calculate score
+            let correctCount = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (userAnswers[i] === correctAnswers[i]) {
+                    correctCount++;
+                }
+            }
+            
+            const percentage = Math.round((correctCount / totalQuestions) * 100);
+            
+            // Update result display
+            document.getElementById('score-display').textContent = `${percentage}%`;
+            document.querySelector('.result-text').textContent = `Kamu menjawab benar ${correctCount} dari ${totalQuestions} soal`;
+            
+            // Show result container
+            document.getElementById('result-container').style.display = 'block';
+        }
+        
+        // Event listener for review button
+        document.getElementById('review-button').addEventListener('click', function() {
+            // Hide result container
+            document.getElementById('result-container').style.display = 'none';
+            
+            // Show first question
+            currentQuestion = 1;
+            document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+            
+            // Show all questions container
+            document.getElementById('question-container').style.display = 'block';
+            document.querySelector('.navigation-buttons').style.display = 'flex';
+            document.querySelector('.question-nav').style.display = 'flex';
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+            
+            // Update progress
+            updateProgress();
+            
+            // Show correct/incorrect answers
+            showAnswerFeedback();
+        });
+        
+        // Function to show answer feedback
+        function showAnswerFeedback() {
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionOptions = document.querySelectorAll(`#question-${i} .option-item`);
+                
+                questionOptions.forEach(option => {
+                    const optionValue = option.dataset.value;
+                    
+                    if (optionValue === correctAnswers[i]) {
+                        option.classList.add('correct');
+                    } else if (userAnswers[i] === optionValue && optionValue !== correctAnswers[i]) {
+                        option.classList.add('incorrect');
+                    }
+                    
+                    // Disable options
+                    option.style.pointerEvents = 'none';
+                });
+                
+                // Update dots
+                const dot = document.querySelectorAll('.dot')[i - 1];
+                if (userAnswers[i] === correctAnswers[i]) {
+                    dot.classList.add('correct');
+                } else {
+                    dot.classList.add('incorrect');
+                }
+            }
+            
+            // Change buttons
+            nextButton.textContent = 'Selanjutnya';
+            nextButton.classList.remove('button-submit');
+            nextButton.removeEventListener('click', showResults);
+            nextButton.addEventListener('click', reviewNext);
+            
+            prevButton.addEventListener('click', reviewPrev);
+        }
+        
+        // Review navigation functions
+        function reviewNext() {
+            if (currentQuestion < totalQuestions) {
+                document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+                currentQuestion++;
+                document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+                updateNavigationButtons();
+                updateProgress();
+            }
+        }
+        
+        function reviewPrev() {
+            if (currentQuestion > 1) {
+                document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+                currentQuestion--;
+                document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+                updateNavigationButtons();
+                updateProgress();
+            }
+        }
+        
+        // Event listener for continue button
+        document.getElementById('continue-button').addEventListener('click', function() {
+            // In a real app, this would navigate to the next section or module
+            alert('Melanjutkan ke materi berikutnya');
+        });
+        
+        // Floating button functionality
+        document.querySelector('.floating-button').addEventListener('click', function() {
+            alert('Membuka chatbot Nostra');
+        });
+        
+        // Back button functionality
+        document.querySelector('.back-button').addEventListener('click', function() {
+            // In a real app, this would navigate back
+            alert('Kembali ke halaman sebelumnya');
+        });
+    </script>
+</body>
+</html>
