@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengenalan Logaritma</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -150,7 +151,8 @@
             font-weight: 500;
         }
         
-        .bottom-navbar {
+        /* navbar */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -158,23 +160,45 @@
             background-color: white;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            padding: 12px 0 8px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            border-radius: 20px 20px 0 0;
+            z-index: 1000;
         }
-        
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 12px;
-            color: #999;
+            text-decoration: none;
+            color: var(--text-light);
         }
-        
         .nav-item.active {
-            color: #2196f3;
+            color: var(--primary-color);
         }
-        
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            bottom: 65px;
+            width: 40px;
+            height: 3px;
+            background: #0078E7;
+            border-radius: 3px;
+        }
         .nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        .nav-text {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: #00a0ff;
+        }
+
+        .nav-item i {
+            font-size: 18px;
             margin-bottom: 4px;
         }
         
@@ -182,14 +206,18 @@
         .content-wrapper {
             padding-bottom: 70px;
         }
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="back-button">
+        <div class="back-button"><a href="list_bab.html">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M15 18l-6-6 6-6"></path>
             </svg>
+            </a>
         </div>
         <h1 class="header-title">Pengenalan Logaritma</h1>
         <p class="header-subtitle">Memahami konsep dasar logaritma sebagai invers dari eksponen.</p>
@@ -258,6 +286,7 @@
                     <p>Karena 3<sup>4</sup> = 81, maka b = 4</p>
                     <p>Jadi, log<sub>3</sub>81 = 4</p>
                 </div>
+                <span>Sudah paham apa yang disampaikan? coba <a href="exercise.html">latihan soal</a></span>
             </div>
         </div>
     </div>
@@ -269,48 +298,23 @@
         <span>Tanya Nostra</span>
     </div>
     
-    <div class="bottom-navbar">
-        <div class="nav-item">
-            <div class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-            </div>
-            <span>Beranda</span>
-        </div>
-        <div class="nav-item active">
-            <div class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg>
-            </div>
-            <span>Materi</span>
-        </div>
-        <div class="nav-item">
-            <div class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
-                    <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
-                    <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
-                    <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
-                    <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
-                    <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
-                </svg>
-            </div>
-            <span>Latihan</span>
-        </div>
-        <div class="nav-item">
-            <div class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </div>
-            <span>Profil</span>
-        </div>
+        <div class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-home"></i></div>
+            <div class="nav-text">Beranda</div>
+        </a>
+        <a href="#" class="nav-item active">
+            <div class="nav-icon"><i class="fas fa-book"></i></div>
+            <div class="nav-text">Materi</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-pencil-alt"></i></div>
+            <div class="nav-text">Latihan</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-user"></i></div>
+            <div class="nav-text">Profil</div>
+        </a>
     </div>
     
     <script>
