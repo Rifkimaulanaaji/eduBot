@@ -561,7 +561,7 @@
             <div class="nav-icon"><i class="fas fa-book"></i></div>
             <div class="nav-text">Materi</div>
         </a>
-        <a href="#" class="nav-item">
+        <a href="list_soal.html" class="nav-item">
             <div class="nav-icon"><i class="fas fa-pencil-alt"></i></div>
             <div class="nav-text">Latihan</div>
         </a>
@@ -708,27 +708,52 @@
         
         // Event listener for review button
         document.getElementById('review-button').addEventListener('click', function() {
-            // Hide result container
-            document.getElementById('result-container').style.display = 'none';
-            
-            // Show first question
-            currentQuestion = 1;
-            document.getElementById(`question-${currentQuestion}`).style.display = 'block';
-            
-            // Show all questions container
-            document.getElementById('question-container').style.display = 'block';
-            document.querySelector('.navigation-buttons').style.display = 'flex';
-            document.querySelector('.question-nav').style.display = 'flex';
-            
-            // Update navigation buttons
-            updateNavigationButtons();
-            
-            // Update progress
-            updateProgress();
-            
-            // Show correct/incorrect answers
-            showAnswerFeedback();
-        });
+    // Hide result container
+    document.getElementById('result-container').style.display = 'none';
+
+    // Sembunyikan semua soal
+    for (let i = 1; i <= totalQuestions; i++) {
+        document.getElementById(`question-${i}`).style.display = 'none';
+    }
+
+    // Buat array soal yang salah
+    window.wrongQuestions = [];
+    for (let i = 1; i <= totalQuestions; i++) {
+        if (userAnswers[i] !== correctAnswers[i]) {
+            window.wrongQuestions.push(i);
+        }
+    }
+
+    // Jika semua benar, tampilkan pesan khusus
+    if (window.wrongQuestions.length === 0) {
+        alert('Semua jawaban kamu benar! Tidak ada soal yang perlu ditinjau.');
+        // Tampilkan soal pertama saja
+        currentQuestion = 1;
+        document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+        updateNavigationButtons();
+        updateProgress();
+        showAnswerFeedback();
+        return;
+    }
+
+    // Tampilkan soal salah pertama
+    window.reviewIndex = 0;
+    currentQuestion = window.wrongQuestions[window.reviewIndex];
+    document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+
+    // Show all questions container
+    document.getElementById('question-container').style.display = 'block';
+    document.querySelector('.navigation-buttons').style.display = 'flex';
+    document.querySelector('.question-nav').style.display = 'flex';
+
+    // Update navigation buttons
+    updateNavigationButtons();
+
+    // Update progress
+    updateProgress();
+
+    // Show correct/incorrect answers
+    showAnswerFeedback();});
         
         // Function to show answer feedback
         function showAnswerFeedback() {
@@ -768,24 +793,26 @@
         
         // Review navigation functions
         function reviewNext() {
-            if (currentQuestion < totalQuestions) {
-                document.getElementById(`question-${currentQuestion}`).style.display = 'none';
-                currentQuestion++;
-                document.getElementById(`question-${currentQuestion}`).style.display = 'block';
-                updateNavigationButtons();
-                updateProgress();
-            }
-        }
+    if (window.wrongQuestions && window.reviewIndex < window.wrongQuestions.length - 1) {
+        document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+        window.reviewIndex++;
+        currentQuestion = window.wrongQuestions[window.reviewIndex];
+        document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+        updateNavigationButtons();
+        updateProgress();
+    }
+}
         
         function reviewPrev() {
-            if (currentQuestion > 1) {
-                document.getElementById(`question-${currentQuestion}`).style.display = 'none';
-                currentQuestion--;
-                document.getElementById(`question-${currentQuestion}`).style.display = 'block';
-                updateNavigationButtons();
-                updateProgress();
-            }
-        }
+    if (window.wrongQuestions && window.reviewIndex > 0) {
+        document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+        window.reviewIndex--;
+        currentQuestion = window.wrongQuestions[window.reviewIndex];
+        document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+        updateNavigationButtons();
+        updateProgress();
+    }
+}
         
         // Event listener for continue button
         document.getElementById('continue-button').addEventListener('click', function() {

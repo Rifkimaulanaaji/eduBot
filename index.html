@@ -781,14 +781,18 @@
             console.log('Selected curriculum:', selectedCurriculum);
             // input to display
             const input = document.querySelector('#display-selected');
-            input.textContent = `${selectedClass || ''} ${selectedCurriculum || ''}`.trim();
-            // Example: redirect to class page
-            // window.location.href = `/class/${selectedClass}/${selectedCurriculum}`;
+            selectedItem = `${selectedClass || ''} ${selectedCurriculum || ''}`.trim();
+            input.innerHTML = selectedItem;
             // Close dropdown
             closeSheet()
+            localStorage.setItem('selectedItem', selectedItem)
              } else {
                 alert('Silakan pilih kelas dan kurikulum terlebih dahulu!');
             }
+        }
+
+        function selectSubject(subject){
+            localStorage.setItem('subject', subject)
         }
         
     </script>
@@ -844,30 +848,30 @@
         </div>
         
         <div class="subjects-grid">
-            <a href="list_materi.html"><div class="subject-card">
+            <a href="list_materi.html"><div class="subject-card" onclick="selectSubject('Matematika')">
                 <div class="subject-icon">∑</div>
                 <div class="subject-name">Matematika</div>
             </div></a>
-            <div class="subject-card">
+            <div class="subject-card" onclick="selectSubject('Bahasa Indonesia')">
                 <div class="subject-icon">🇮🇩</div>
                 <div class="subject-name">Bahasa Indonesia</div>
             </div>
-            <div class="subject-card">
+            <div class="subject-card" onclick="selectSubject('IPA')">
                 <div class="subject-icon">🧪</div>
                 <div class="subject-name">IPA</div>
             </div>
-            <div class="subject-card">
+            <div class="subject-card" onclick="selectSubject('IPS')">
                 <div class="subject-icon">🌏</div>
                 <div class="subject-name">IPS</div>
             </div>
-            <div class="subject-card">
+            <div class="subject-card" onclick="selectSubject('Bahasa Inggris')">
                 <div class="subject-icon">🔤</div>
                 <div class="subject-name">Bahasa Inggris</div>
             </div>
-            <div class="subject-card">
+            <a href="list_mapel.html"><div class="subject-card">
                 <div class="subject-icon">📚</div>
                 <div class="subject-name">Lainnya</div>
-            </div>
+            </div></a>
         </div>
         
         <div class="promo-card">
@@ -944,7 +948,7 @@
             <div class="nav-icon"><i class="fas fa-book"></i></div>
             <div class="nav-text">Materi</div>
         </a>
-        <a href="#" class="nav-item">
+        <a href="list_soal.html" class="nav-item">
             <div class="nav-icon"><i class="fas fa-pencil-alt"></i></div>
             <div class="nav-text">Latihan</div>
         </a>

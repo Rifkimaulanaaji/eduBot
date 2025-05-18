@@ -226,7 +226,7 @@
     </div>
 
     <div class="subject-container">
-        <a href="#" class="subject-card">
+        <div class="subject-card" onclick="selectSubject('Matematika')">
             <div class="subject-header">
                 <div class="subject-icon">Σ</div>
                 <div class="subject-title">Matematika</div>
@@ -244,9 +244,9 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
         
-        <a href="#" class="subject-card">
+        <div class="subject-card" onclick="selectSubject('Bahasa Indonesia')">
             <div class="subject-header">
                 <div class="subject-icon">🇮🇩</div>
                 <div class="subject-title">Bahasa Indonesia</div>
@@ -264,9 +264,9 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
         
-        <a href="#" class="subject-card">
+        <div class="subject-card" onclick="selectSubject('IPA')" >
             <div class="subject-header">
                 <div class="subject-icon">🧪</div>
                 <div class="subject-title">IPA</div>
@@ -284,9 +284,9 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
         
-        <a href="#" class="subject-card">
+        <div class="subject-card" onclick="selectSubject('IPS')">
             <div class="subject-header">
                 <div class="subject-icon">🌏</div>
                 <div class="subject-title">IPS</div>
@@ -304,9 +304,9 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
         
-        <a href="#" class="subject-card">
+        <div class="subject-card" onclick="selectSubject('Bahasa Inggris')">
             <div class="subject-header">
                 <div class="subject-icon">abc</div>
                 <div class="subject-title">Bahasa Inggris</div>
@@ -324,27 +324,7 @@
                     </div>
                 </div>
             </div>
-        </a>
-        
-        <a href="#" class="subject-card">
-            <div class="subject-header">
-                <div class="subject-icon">📚</div>
-                <div class="subject-title">Lainnya</div>
-            </div>
-            <div class="subject-details">
-                <div class="subject-description">Mata pelajaran tambahan</div>
-                <div class="subject-stats">
-                    <div class="stat">
-                        <div class="stat-icon">📚</div>
-                        <div>8 Bab</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-icon">📝</div>
-                        <div>24 Sub Bab</div>
-                    </div>
-                </div>
-            </div>
-        </a>
+        </div>
     </div>
     <div class="bottom-nav">
         <a href="index.html" class="nav-item">
@@ -355,7 +335,7 @@
             <div class="nav-icon"><i class="fas fa-book"></i></div>
             <div class="nav-text">Materi</div>
         </a>
-        <a href="#" class="nav-item">
+        <a href="list_soal.html" class="nav-item">
             <div class="nav-icon"><i class="fas fa-pencil-alt"></i></div>
             <div class="nav-text">Latihan</div>
         </a>
@@ -364,5 +344,10 @@
             <div class="nav-text">Profil</div>
         </a>
     </div>
+    <script>
+        function selectSubject(subject){
+            localStorage.setItem('subject', subject)
+        }
+    </script>
 </body>
 </html>

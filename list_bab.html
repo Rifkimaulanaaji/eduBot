@@ -503,7 +503,7 @@
             <div class="nav-icon"><i class="fas fa-book"></i></div>
             <div class="nav-text">Materi</div>
         </a>
-        <a href="#" class="nav-item">
+        <a href="list_soal.html" class="nav-item">
             <div class="nav-icon"><i class="fas fa-pencil-alt"></i></div>
             <div class="nav-text">Latihan</div>
         </a>
@@ -516,44 +516,40 @@
     <script>
         // Toggle tab active state
         const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
+        if (tabs.length) {
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
             });
-        });
-        
+        }
+
         // Handle lesson buttons
         const lessonButtons = document.querySelectorAll('.lesson-button');
-        lessonButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const lessonItem = this.closest('.lesson-item');
-                const lessonTitle = lessonItem.querySelector('.lesson-title').textContent;
-                
-                if (this.classList.contains('completed')) {
-                    alert(`Mengulang pembelajaran: ${lessonTitle}`);
-                } else {
-                    alert(`Memulai pembelajaran: ${lessonTitle}`);
-                }
+        if (lessonButtons.length) {
+            lessonButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lessonItem = this.closest('.lesson-item');
+                    if (!lessonItem) return;
+                    const lessonTitle = lessonItem.querySelector('.lesson-title')?.textContent || '';
+                    
+                    if (this.classList.contains('completed')) {
+                        alert(`Mengulang pembelajaran: ${lessonTitle}`);
+                    } else {
+                        alert(`Memulai pembelajaran: ${lessonTitle}`);
+                    }
+                });
             });
-        });
-        
+        }
+
         // Handle back button
-        document.querySelector('.back-button').addEventListener('click', () => {
-            alert('Kembali ke halaman sebelumnya');
-        });
-        
-        // Bottom navigation
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                if (!item.classList.contains('active')) {
-                    e.preventDefault();
-                    const section = item.querySelector('span').textContent;
-                    alert(`Navigasi ke ${section}`);
-                }
+        const backBtn = document.querySelector('.back-button');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => {
+                alert('Kembali ke halaman sebelumnya');
             });
-        });
+        }
     </script>
 </body>
 </html>

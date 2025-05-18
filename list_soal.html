@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan - Kategori</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, #1E88E5 0%, #90CAF9 50%, #E3F2FD 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 24px;
+            margin: 0;
+        }
+        
+        .tabs {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .tab.active {
+            background-color: white;
+            color: #1E88E5;
+            font-weight: bold;
+            border-radius: 30px;
+        }
+        
+        .section-title {
+            color: white;
+            font-size: 18px;
+            margin: 0 0 10px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .see-all {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .category-header {
+            color: white;
+            font-size: 18px;
+            margin: 20px 0 15px 5px;
+        }
+        
+        .subject-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .subject-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: #E3F2FD;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .subject-info {
+            flex: 1;
+        }
+        
+        .subject-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .subject-meta {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .progress-bar-container {
+            height: 6px;
+            background-color: #EEEEEE;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #1E88E5;
+            border-radius: 3px;
+        }
+        
+        .topic-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .topic-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .topic-badge {
+            background-color: #E3F2FD;
+            color: #1E88E5;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .topic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .quiz-card {
+            background-color: #F5F5F5;
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .quiz-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .quiz-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .level-indicator {
+            display: flex;
+            align-items: center;
+        }
+        
+        .level-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #1E88E5;
+            margin-right: 3px;
+        }
+        
+        .level-dot.empty {
+            background-color: #DDDDDD;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 8px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            border-radius: 20px 20px 0 0;
+            z-index: 1000;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            bottom: 65px;
+            width: 40px;
+            height: 3px;
+            background: #0078E7;
+            border-radius: 3px;
+        }
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        .nav-text {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: #00a0ff;
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+                .all-subjects {
+            margin-bottom: 20px;
+        }
+        
+        .category-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            margin: 20px 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Latihan</h1>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab">Rekomendasi</div>
+            <div class="tab active">Kategori</div>
+            <div class="tab">Riwayat</div>
+        </div>
+        
+        <!-- Kategori Section -->
+        <div class="all-subjects">
+            <div class="category-label">Mata Pelajaran</div>
+            
+            <!-- Matematika -->
+            <div class="subject-card">
+                <div class="subject-icon">Σ</div>
+                <div class="subject-info">
+                    <div class="subject-title">Matematika</div>
+                    <div class="subject-meta">
+                        8 bab • 45 latihan • 225 soal
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 75%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- IPA -->
+            <div class="subject-card">
+                <div class="subject-icon">🧪</div>
+                <div class="subject-info">
+                    <div class="subject-title">IPA</div>
+                    <div class="subject-meta">
+                        6 bab • 30 latihan • 150 soal
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bahasa Indonesia -->
+            <div class="subject-card">
+                <div class="subject-icon">🇮🇩</div>
+                <div class="subject-info">
+                    <div class="subject-title">Bahasa Indonesia</div>
+                    <div class="subject-meta">
+                        5 bab • 25 latihan • 125 soal
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 40%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- IPS -->
+            <div class="subject-card">
+                <div class="subject-icon">🌏</div>
+                <div class="subject-info">
+                    <div class="subject-title">IPS</div>
+                    <div class="subject-meta">
+                        4 bab • 20 latihan • 100 soal
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 25%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bahasa Inggris -->
+            <div class="subject-card">
+                <div class="subject-icon">🔤</div>
+                <div class="subject-info">
+                    <div class="subject-title">Bahasa Inggris</div>
+                    <div class="subject-meta">
+                        5 bab • 25 latihan • 125 soal
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 35%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category-label">Jenis Latihan</div>
+        
+        <!-- Jenis Latihan -->
+        <div class="topic-card">
+            <div class="topic-header">
+                <div class="topic-title">Latihan Harian</div>
+                <div class="topic-badge">Baru</div>
+            </div>
+            <div class="topic-grid">
+                <div class="quiz-card">
+                    <div class="quiz-title">Tantangan Hari Ini</div>
+                    <div class="quiz-meta">
+                        <span>10 soal</span>
+                        <div class="level-indicator">
+                            <div class="level-dot"></div>
+                            <div class="level-dot"></div>
+                            <div class="level-dot empty"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quiz-card">
+                    <div class="quiz-title">Quiz Random</div>
+                    <div class="quiz-meta">
+                        <span>5 soal</span>
+                        <div class="level-indicator">
+                            <div class="level-dot"></div>
+                            <div class="level-dot empty"></div>
+                            <div class="level-dot empty"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="topic-card">
+            <div class="topic-header">
+                <div class="topic-title">Ujian Simulasi</div>
+            </div>
+            <div class="topic-grid">
+                <div class="quiz-card">
+                    <div class="quiz-title">PTS Simulasi</div>
+                    <div class="quiz-meta">
+                        <span>25 soal</span>
+                        <div class="level-indicator">
+                            <div class="level-dot"></div>
+                            <div class="level-dot"></div>
+                            <div class="level-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quiz-card">
+                    <div class="quiz-title">PAS Simulasi</div>
+                    <div class="quiz-meta">
+                        <span>40 soal</span>
+                        <div class="level-indicator">
+                            <div class="level-dot"></div>
+                            <div class="level-dot"></div>
+                            <div class="level-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+   <div class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-home"></i></div>
+            <div class="nav-text">Beranda</div>
+        </a>
+        <a href="list_materi.html" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-book"></i></div>
+            <div class="nav-text">Materi</div>
+        </a>
+        <a href="list_soal.html" class="nav-item active">
+            <div class="nav-icon"><i class="fas fa-pencil-alt"></i></div>
+            <div class="nav-text">Latihan</div>
+        </a>
+        <a href="profil.html" class="nav-item">
+            <div class="nav-icon"><i class="fas fa-user"></i></div>
+            <div class="nav-text">Profil</div>
+        </a>
+    </div>
+</body>
+</html>
